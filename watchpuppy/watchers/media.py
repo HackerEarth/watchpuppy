@@ -2,11 +2,12 @@ import pyinotify
 import uploader
 import asyncore
 import threading
+import os
 
 import logging
 
 logger = logging.getLogger()
-
+logger.setLevel(logging.DEBUG)
 
 class MediaFilesEventHandler(pyinotify.ProcessEvent):
     def __init__(self, settings):
@@ -38,7 +39,6 @@ class MediaFilesEventWatcher(object):
 
     def get_notifier(self):
         watch_manager = pyinotify.WatchManager()
-        print self.settings.MEDIA_ROOT
 
         logger.debug("Will watch directory " + self.settings.MEDIA_ROOT)
 
@@ -54,10 +54,13 @@ class MediaFilesEventWatcher(object):
         stdout_file = self.settings.STD_OUT_FILE
         try:
             logger.debug("Starting server")
-            print "Starting server"
             notifier.loop(daemonize=self.daemonize,
                     pid_file=pid_file,
                     stdout=stdout_file)
         except Exception:
             import traceback
             print traceback.format_exc()
+        finally:
+            if os.path.exists(pid_file):
+                os.remove(pid_file)
+

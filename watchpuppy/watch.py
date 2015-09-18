@@ -16,7 +16,7 @@ def main():
     print "Here"
     parser = optparse.OptionParser()
     parser.add_option('-w', '--watcher', action='store', dest='watcher')
-    parser.add_option('-d', '--daemonize', action='store_false', default=False,
+    parser.add_option('-d', '--daemonize', action='store_false', default=True,
             dest='daemonize')
     parser.add_option('-s', '--settings', action='store', dest='settings')
 
@@ -36,4 +36,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-main()
