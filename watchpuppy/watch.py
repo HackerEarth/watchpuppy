@@ -31,7 +31,7 @@ def main():
 
     daemonize = options.daemonize
     settings_module = __import__(options.settings)
-    watcher = watcher_class(settings_module, daemonize=daemonize)
+    watcher = watcher_class(daemonize=daemonize)
     watcher.start_watcher()
 
 if __name__ == '__main__':
