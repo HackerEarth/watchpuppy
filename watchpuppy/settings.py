@@ -1,5 +1,6 @@
 from mongoengine import register_connection
 
+
 DEBUG = True
 
 FILESYSTEM_ROOT = '/home/praveen/webapps/django/mycareerstack/'
@@ -18,6 +19,13 @@ MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 
 MONGODB_CONN_ALIASES = ['watchpuppy']
+
+# try to override settings variables with prod
+try:
+    from production_settings import *
+except:
+    pass
+
 
 for alias in MONGODB_CONN_ALIASES:
     register_connection(alias, alias,
